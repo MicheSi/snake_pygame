@@ -5,6 +5,8 @@ import random
 pygame.init()
 
 # initialize color variables
+white = (255, 255, 255)
+black = (0, 0, 0)
 blue = (0, 0, 255)
 red = (255, 0, 0)
 
@@ -14,9 +16,9 @@ display_height = 600
 game_display = pygame.display.set_mode((display_width, display_height))
 pygame.display.set_caption('Snake')
 
-block = 10
-
 clock = pygame.time.Clock()
+
+block = 10
 speed = 10
 
 font_style = pygame.font.SysFont(None, 50)
@@ -26,7 +28,6 @@ def message(msg, color):
     game_display.blit(display_msg, [display_width/3, display_height/3])
 
 # creates loop to run game
-
 def gameLoop():
     game_over = False
     game_close = False
@@ -82,9 +83,13 @@ def gameLoop():
         y1 += y1_change
 
         # draw snake and apple
+        game_display.fill(black)
         pygame.draw.rect(game_display, red, [appleX, appleY, block, block])
         pygame.draw.rect(game_display, blue, [x1, y1, block, block])
         pygame.display.update()
+
+        if x1 == appleX and y1 == appleY:
+            print('Yummy!')
 
         clock.tick(speed)
 
