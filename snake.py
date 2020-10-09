@@ -26,7 +26,10 @@ speed = 5
 font_style = pygame.font.SysFont('comicsans', 30)
 score_font = pygame.font.SysFont('arial', 35)
 
-def my_snake(block, snake_list):
+def myScore(score):
+    value = score_font.render('Score')
+
+def mySnake(block, snake_list):
     for b in snake_list:
         pygame.draw.rect(game_display, green, [b[0], b[1], block, block])
 
@@ -107,7 +110,7 @@ def gameLoop():
             if b == snake_head:
                 game_close = True
 
-        my_snake(block, snake_list)
+        mySnake(block, snake_list)
 
         pygame.display.update()
 
