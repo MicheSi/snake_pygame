@@ -9,19 +9,26 @@ white = (255, 255, 255)
 black = (0, 0, 0)
 blue = (0, 0, 255)
 red = (255, 0, 0)
+yellow = (255, 255, 102)
+green = (0, 255, 0)
 
 # creates screen using pygame
-display_width = 600
-display_height = 600
+display_width = 800
+display_height = 800
 game_display = pygame.display.set_mode((display_width, display_height))
 pygame.display.set_caption('Snake')
 
 clock = pygame.time.Clock()
 
 block = 10
-speed = 10
+speed = 5
 
-font_style = pygame.font.SysFont(None, 50)
+font_style = pygame.font.SysFont('comicsans', 30)
+score_font = pygame.font.SysFont('arial', 35)
+
+def my_snake(block, snake_list):
+    for b in snake_list:
+        pygame.draw.rect(game_display, green, [b[0], b[1], block, block])
 
 def message(msg, color):
     display_msg = font_style.render(msg, True, color)
@@ -40,8 +47,11 @@ def gameLoop():
     x1_change = 0
     y1_change = 0
 
+    snake_list = []
+    snake_length = 1
+
     # coordinates of apple
-    appleX = round(random.randrange(0, display_width - block)  /10)
+    appleX = round(random.randrange(0, display_width - block)  / 10)
     appleY = round(random.randrange(0, display_height - block) / 10)
 
     while not game_over:
@@ -76,7 +86,7 @@ def gameLoop():
                     x1_change = 0
 
         if x1 >= display_width or x1 < 0 or y1 >= display_height or y1 < 0:
-            game_over = True
+            game_close = True
 
         # move snake
         x1 += x1_change
@@ -85,11 +95,26 @@ def gameLoop():
         # draw snake and apple
         game_display.fill(black)
         pygame.draw.rect(game_display, red, [appleX, appleY, block, block])
-        pygame.draw.rect(game_display, blue, [x1, y1, block, block])
+
+        snake_head = []
+        snake_head.append(x1)
+        snake_head.append(y1)
+        snake_list.append(snake_head)
+        if len(snake_list) > snake_length:
+            del snake_list[0]
+
+        for b in snake_list[:-1]:
+            if b == snake_head:
+                game_close = True
+
+        my_snake(block, snake_list)
+
         pygame.display.update()
 
         if x1 == appleX and y1 == appleY:
-            print('Yummy!')
+            appleX = round(random.randrange(0, display_width - block))
+            appleY = round(random.randrange(0, display_height - block))
+            snake_length += 1
 
         clock.tick(speed)
 
