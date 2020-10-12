@@ -14,17 +14,17 @@ green = (0, 255, 0)
 
 # creates screen using pygame
 display_width = 800
-display_height = 800
+display_height = 600
 game_display = pygame.display.set_mode((display_width, display_height))
 pygame.display.set_caption('Snake')
 
 clock = pygame.time.Clock()
 
 block = 10
-speed = 5
+speed = 10
 
 font_style = pygame.font.SysFont('comicsans', 30)
-score_font = pygame.font.SysFont('bahnschrift', 35)
+score_font = pygame.font.SysFont('bahnschrift', 20)
 
 def myScore(score):
     value = score_font.render('Score: ' + str(score), True, yellow)
@@ -55,11 +55,12 @@ def gameLoop():
     snake_length = 1
 
     # coordinates of apple
-    appleX = round(random.randrange(0, display_width - block)  / 10)
-    appleY = round(random.randrange(0, display_height - block) / 10)
+    appleX = round(random.randrange(0, display_width - block)  / 10.0) * 10
+    appleY = round(random.randrange(0, display_height - block) / 10.0) * 10
 
     while not game_over:
         while game_close == True:
+            game_display(black)
             message('Game Over! Press Q to Quit or C to Play Again', red)
             myScore(snake_length - 1)
             pygame.display.update()
@@ -118,8 +119,8 @@ def gameLoop():
         pygame.display.update()
 
         if x1 == appleX and y1 == appleY:
-            appleX = round(random.randrange(0, display_width - block))
-            appleY = round(random.randrange(0, display_height - block))
+            appleX = round(random.randrange(0, display_width - block) / 10) * 10
+            appleY = round(random.randrange(0, display_height - block) / 10) * 10
             snake_length += 1
 
         clock.tick(speed)
