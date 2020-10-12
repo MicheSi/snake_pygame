@@ -20,7 +20,7 @@ pygame.display.set_caption('Snake')
 clock = pygame.time.Clock()
 
 block = 10
-speed = 10
+
 
 font_style = pygame.font.SysFont('arial', 30)
 score_font = pygame.font.SysFont('bahnschrift', 20)
@@ -52,6 +52,8 @@ def gameLoop():
 
     snake_list = []
     snake_length = 1
+
+    speed = 10
 
     # coordinates of apple
     appleX = round(random.randrange(0, display_width - block)  / 10.0) * 10
@@ -110,6 +112,16 @@ def gameLoop():
         for b in snake_list[:-1]:
             if b == snake_head:
                 game_close = True
+        
+        # increase speed of snake
+        if snake_length == 6:
+            speed = 15
+        if snake_length == 16:
+            speed = 20
+        if snake_length == 26:
+            speed = 25
+        if snake_length == 36:
+            speed = 30
 
         mySnake(block, snake_list)
         myScore(snake_length - 1)
