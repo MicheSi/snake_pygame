@@ -114,13 +114,13 @@ def gameLoop():
                 game_close = True
         
         # increase speed of snake
-        if snake_length == 6:
+        if snake_length == 11:
             speed = 15
-        if snake_length == 16:
+        if snake_length == 21:
             speed = 20
-        if snake_length == 26:
+        if snake_length == 31:
             speed = 25
-        if snake_length == 36:
+        if snake_length == 41:
             speed = 30
 
         mySnake(block, snake_list)
