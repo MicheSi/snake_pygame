@@ -7,10 +7,9 @@ pygame.init()
 # initialize color variables
 white = (255, 255, 255)
 black = (0, 0, 0)
-blue = (0, 0, 255)
+blue = (30, 144, 255)
 red = (255, 0, 0)
-yellow = (255, 255, 102)
-green = (0, 255, 0)
+green = (50, 205, 50)
 
 # creates screen using pygame
 display_width = 800
@@ -23,11 +22,11 @@ clock = pygame.time.Clock()
 block = 10
 speed = 10
 
-font_style = pygame.font.SysFont('comicsans', 30)
+font_style = pygame.font.SysFont('arial', 30)
 score_font = pygame.font.SysFont('bahnschrift', 20)
 
 def myScore(score):
-    value = score_font.render('Score: ' + str(score), True, yellow)
+    value = score_font.render('Score: ' + str(score), True, blue)
     game_display.blit(value, [0, 0])
 
 def mySnake(block, snake_list):
@@ -60,8 +59,7 @@ def gameLoop():
 
     while not game_over:
         while game_close == True:
-            game_display(black)
-            message('Game Over! Press Q to Quit or C to Play Again', red)
+            message('Game Over! Press Q to Quit or C to Play Again', white)
             myScore(snake_length - 1)
             pygame.display.update()
 
