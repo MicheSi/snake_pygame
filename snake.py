@@ -19,20 +19,23 @@ pygame.display.set_caption('Snake')
 
 clock = pygame.time.Clock()
 
+# size of block
 block = 10
-
 
 font_style = pygame.font.SysFont('arial', 30)
 score_font = pygame.font.SysFont('bahnschrift', 20)
 
+# renders score
 def myScore(score):
     value = score_font.render('Score: ' + str(score), True, blue)
     game_display.blit(value, [0, 0])
 
+# renders snake blocks
 def mySnake(block, snake_list):
     for b in snake_list:
         pygame.draw.rect(game_display, green, [b[0], b[1], block, block])
 
+# renders game over message
 def message(msg, color):
     display_msg = font_style.render(msg, True, color)
     game_display.blit(display_msg, [display_width/6, display_height/3])
@@ -50,9 +53,11 @@ def gameLoop():
     x1_change = 0
     y1_change = 0
 
+    # initialize the snake with just a head
     snake_list = []
     snake_length = 1
 
+    # default speed of snake
     speed = 10
 
     # coordinates of apple
@@ -91,6 +96,7 @@ def gameLoop():
                     y1_change = block
                     x1_change = 0
 
+        # game over if snake runs into itself or walls
         if x1 >= display_width or x1 < 0 or y1 >= display_height or y1 < 0:
             game_close = True
 
@@ -128,6 +134,7 @@ def gameLoop():
 
         pygame.display.update()
 
+        # moves apple to new random spot when eaten and adds block to snake
         if x1 == appleX and y1 == appleY:
             appleX = round(random.randrange(0, display_width - block) / 10) * 10
             appleY = round(random.randrange(0, display_height - block) / 10) * 10
